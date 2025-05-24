@@ -1,6 +1,6 @@
-import { create } from "zustand"
-import { persist } from "zustand/middleware"
-import type { ChartState } from "./types"
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { ChartState } from "./types";
 
 export const useChartStore = create<ChartState>()(
   persist(
@@ -9,10 +9,10 @@ export const useChartStore = create<ChartState>()(
       annotations: {},
 
       addThreshold: (threshold) => {
-        const id = `threshold-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+        const id = `threshold-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         set((state) => ({
           thresholds: [...state.thresholds, { ...threshold, id }],
-        }))
+        }));
       },
 
       updateThreshold: (id, updates) => {
@@ -20,23 +20,25 @@ export const useChartStore = create<ChartState>()(
           thresholds: state.thresholds.map((threshold) =>
             threshold.id === id ? { ...threshold, ...updates } : threshold,
           ),
-        }))
+        }));
       },
 
       deleteThreshold: (id) => {
         set((state) => ({
-          thresholds: state.thresholds.filter((threshold) => threshold.id !== id),
-        }))
+          thresholds: state.thresholds.filter(
+            (threshold) => threshold.id !== id,
+          ),
+        }));
       },
 
       addAnnotation: (annotation) => {
-        const id = `annotation-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+        const id = `annotation-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         set((state) => ({
           annotations: {
             ...state.annotations,
             [id]: { ...annotation, id },
           },
-        }))
+        }));
       },
 
       updateAnnotation: (id, updates) => {
@@ -45,14 +47,14 @@ export const useChartStore = create<ChartState>()(
             ...state.annotations,
             [id]: { ...state.annotations[id], ...updates },
           },
-        }))
+        }));
       },
 
       deleteAnnotation: (id) => {
         set((state) => {
-          const { [id]: deleted, ...rest } = state.annotations
-          return { annotations: rest }
-        })
+          const { [id]: deleted, ...rest } = state.annotations;
+          return { annotations: rest };
+        });
       },
     }),
     {
@@ -60,4 +62,4 @@ export const useChartStore = create<ChartState>()(
       version: 1,
     },
   ),
-)
+);

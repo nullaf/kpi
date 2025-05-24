@@ -1,13 +1,19 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useChartStore } from "./useChartStore"
+import type React from "react";
+import { useState } from "react";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useChartStore } from "./useChartStore";
 
 const PREDEFINED_COLORS = [
   "#ef4444", // red
@@ -18,22 +24,22 @@ const PREDEFINED_COLORS = [
   "#3b82f6", // blue
   "#8b5cf6", // violet
   "#ec4899", // pink
-]
+];
 
 export const AddThresholdDialog: React.FC = () => {
-  const [open, setOpen] = useState(false)
-  const [name, setName] = useState("")
-  const [value, setValue] = useState("")
-  const [selectedColor, setSelectedColor] = useState(PREDEFINED_COLORS[0])
-  const { addThreshold } = useChartStore()
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [value, setValue] = useState("");
+  const [selectedColor, setSelectedColor] = useState(PREDEFINED_COLORS[0]);
+  const { addThreshold } = useChartStore();
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!name.trim() || !value.trim()) return
+    if (!name.trim() || !value.trim()) return;
 
-    const numericValue = Number.parseInt(value.replace(/[^\d]/g, ""), 10)
-    if (isNaN(numericValue)) return
+    const numericValue = Number.parseInt(value.replace(/[^\d]/g, ""), 10);
+    if (isNaN(numericValue)) return;
 
     addThreshold({
       name: name.trim(),
@@ -41,21 +47,21 @@ export const AddThresholdDialog: React.FC = () => {
       color: selectedColor,
       isLocked: false,
       isVisible: true,
-    })
+    });
 
     // Reset form
-    setName("")
-    setValue("")
-    setSelectedColor(PREDEFINED_COLORS[0])
-    setOpen(false)
-  }
+    setName("");
+    setValue("");
+    setSelectedColor(PREDEFINED_COLORS[0]);
+    setOpen(false);
+  };
 
   const handleCancel = () => {
-    setName("")
-    setValue("")
-    setSelectedColor(PREDEFINED_COLORS[0])
-    setOpen(false)
-  }
+    setName("");
+    setValue("");
+    setSelectedColor(PREDEFINED_COLORS[0]);
+    setOpen(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -106,7 +112,9 @@ export const AddThresholdDialog: React.FC = () => {
                   type="button"
                   onClick={() => setSelectedColor(color)}
                   className={`w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 ${
-                    selectedColor === color ? "border-slate-900 scale-110" : "border-slate-300"
+                    selectedColor === color
+                      ? "border-slate-900 scale-110"
+                      : "border-slate-300"
                   }`}
                   style={{ backgroundColor: color }}
                   aria-label={`Select ${color} color`}
@@ -126,5 +134,5 @@ export const AddThresholdDialog: React.FC = () => {
         </form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

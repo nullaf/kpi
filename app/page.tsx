@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { KpiThresholdChart } from "@/components/KpiThresholdChart/Chart"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { KpiThresholdChart } from "@/components/KpiThresholdChart/Chart";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
       retry: 1,
     },
   },
-})
+});
 
 export default function Home() {
   return (
@@ -23,5 +23,5 @@ export default function Home() {
       </main>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  )
+  );
 }

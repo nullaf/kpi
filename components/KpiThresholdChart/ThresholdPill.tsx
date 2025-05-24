@@ -1,36 +1,36 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { Trash2, Lock, Unlock, Eye, EyeOff } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import type { Threshold } from "./types"
-import { formatCurrency, getContrastColor } from "./utils"
-import { useChartStore } from "./useChartStore"
+import type React from "react";
+import { Trash2, Lock, Unlock, Eye, EyeOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import type { Threshold } from "./types";
+import { formatCurrency, getContrastColor } from "./utils";
+import { useChartStore } from "./useChartStore";
 
 interface ThresholdPillProps {
-  threshold: Threshold
+  threshold: Threshold;
 }
 
 export const ThresholdPill: React.FC<ThresholdPillProps> = ({ threshold }) => {
-  const { updateThreshold, deleteThreshold } = useChartStore()
+  const { updateThreshold, deleteThreshold } = useChartStore();
 
   const handleToggleLock = () => {
-    updateThreshold(threshold.id, { isLocked: !threshold.isLocked })
-  }
+    updateThreshold(threshold.id, { isLocked: !threshold.isLocked });
+  };
 
   const handleToggleVisibility = () => {
-    updateThreshold(threshold.id, { isVisible: !threshold.isVisible })
-  }
+    updateThreshold(threshold.id, { isVisible: !threshold.isVisible });
+  };
 
   const handleDelete = () => {
-    deleteThreshold(threshold.id)
-  }
+    deleteThreshold(threshold.id);
+  };
 
-  const textColor = getContrastColor(threshold.color)
+  const textColor = getContrastColor(threshold.color);
 
   return (
-    <div className="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 shadow-sm">
+    <div className="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 shadow-sm sm:w-auto w-full">
       <Badge
         className="px-3 py-1 text-sm font-medium"
         style={{
@@ -42,9 +42,11 @@ export const ThresholdPill: React.FC<ThresholdPillProps> = ({ threshold }) => {
         {threshold.name}
       </Badge>
 
-      <span className="text-sm font-mono text-slate-600">{formatCurrency(threshold.value)}</span>
+      <span className="text-sm font-mono text-slate-600">
+        {formatCurrency(threshold.value)}
+      </span>
 
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 right-0 ml-auto">
         <Button
           variant="ghost"
           size="sm"
@@ -52,7 +54,11 @@ export const ThresholdPill: React.FC<ThresholdPillProps> = ({ threshold }) => {
           className="h-6 w-6 p-0"
           title={threshold.isVisible ? "Hide threshold" : "Show threshold"}
         >
-          {threshold.isVisible ? <Eye className="h-3 w-3" /> : <EyeOff className="h-3 w-3" />}
+          {threshold.isVisible ? (
+            <Eye className="h-3 w-3" />
+          ) : (
+            <EyeOff className="h-3 w-3" />
+          )}
         </Button>
 
         <Button
@@ -62,7 +68,11 @@ export const ThresholdPill: React.FC<ThresholdPillProps> = ({ threshold }) => {
           className="h-6 w-6 p-0"
           title={threshold.isLocked ? "Unlock threshold" : "Lock threshold"}
         >
-          {threshold.isLocked ? <Lock className="h-3 w-3" /> : <Unlock className="h-3 w-3" />}
+          {threshold.isLocked ? (
+            <Lock className="h-3 w-3" />
+          ) : (
+            <Unlock className="h-3 w-3" />
+          )}
         </Button>
 
         <Button
@@ -76,5 +86,5 @@ export const ThresholdPill: React.FC<ThresholdPillProps> = ({ threshold }) => {
         </Button>
       </div>
     </div>
-  )
-}
+  );
+};
